@@ -3021,7 +3021,7 @@ libiconv-1.14-clean:
 
 #ftpclient
 ftpclient/stamp-h1: 
-	@$(MAKE) -C ftpclient
+	@$(MAKE) -static -C ftpclient
 
 ftpclient:ftpclient/stamp-h1
 
@@ -3029,11 +3029,7 @@ ftpclient-install: ftpclient
 	@$(SEP)
 	install -D ftpclient/ftpclient $(INSTALLDIR)/ftpclient/usr/sbin/ftpclient
 	$(STRIP) $(INSTALLDIR)/ftpclient/usr/sbin/ftpclient
-ifeq ($(RTCONFIG_BCMARM),y)
-	install -D $(shell dirname $(shell which $(CXX)))/../arm-brcm-linux-uclibcgnueabi/lib/libstdc++.so.6 $(INSTALLDIR)/ftpclient/usr/lib/libstdc++.so.6
-else
-	install -D $(shell dirname $(shell which $(CXX)))/../lib/libstdc++.so.6 $(INSTALLDIR)/ftpclient/usr/lib/libstdc++.so.6
-endif
+
 ftpclient-clean:
 	-@$(MAKE) -C ftpclient clean
 
@@ -3042,17 +3038,13 @@ sambaclient/stamp-h1:
 	touch $@
 
 sambaclient: sambaclient/stamp-h1
-	@$(MAKE) -C sambaclient
+	@$(MAKE) -static -C sambaclient
 
 sambaclient-install: sambaclient
 	@$(SEP)
 	install -D sambaclient/sambaclient $(INSTALLDIR)/sambaclient/usr/sbin/sambaclient
 	$(STRIP) $(INSTALLDIR)/sambaclient/usr/sbin/sambaclient
-ifeq ($(RTCONFIG_BCMARM),y)
-	install -D $(shell dirname $(shell which $(CXX)))/../arm-brcm-linux-uclibcgnueabi/lib/libstdc++.so.6 $(INSTALLDIR)/sambaclient/usr/lib/libstdc++.so.6
-else
-	install -D $(shell dirname $(shell which $(CXX)))/../lib/libstdc++.so.6 $(INSTALLDIR)/sambaclient/usr/lib/libstdc++.so.6
-endif
+
 sambaclient-clean:
 	-@$(MAKE) -C sambaclient clean
 	rm -rf sambaclient/stamp-h1
